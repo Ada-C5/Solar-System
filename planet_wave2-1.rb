@@ -1,4 +1,5 @@
 require 'yaml'
+require 'colorize'
 class SolarSystem
 attr_accessor :planets, :age
   #attr_accessor :
@@ -18,13 +19,12 @@ attr_accessor :planets, :age
   end
 
   def distance_between_planets(a, b)
-    puts "\n#{a.name} and #{b.name} are #{(a.distance_from_the_sun - b.distance_from_the_sun).abs.round(0)} million kilometers away from each other."
+    puts "\n#{a.name} and #{b.name} are #{(a.distance_from_the_sun - b.distance_from_the_sun).abs.round(0)} million kilometers away from each other.".colorize(:light_green)
   end
 
   def age_of_planet(planet)
-    puts "\n#{planet.name} is #{(@age / planet.orbital_period).round} years old.  "
+    puts "\n#{planet.name} is #{(@age / planet.orbital_period).round} years old.  ".colorize(:blue)
   end
-
 
 end
 
@@ -55,7 +55,7 @@ class Planet
     puts "\nHere is some info about the planet #{@name}, the #{@order_in_our_system} planet from the sun.
 It has #{@num_of_moons} #{plural}, and is made of #{@made_of}.
 Its gravity relative to earth is #{@gravity}, which means a 100 pound person would weigh #{(@gravity * 100).round(0)} pounds on #{@name}.
-#{@name.capitalize} is #{@distance_from_the_sun} million kilometers from the sun, and each day on #{@name} is #{@length_of_day} hours long."
+#{@name.capitalize} is #{@distance_from_the_sun} million kilometers from the sun, and each day on #{@name} is #{@length_of_day} hours long.".colorize(:light_blue)
 
   end
 end
@@ -100,7 +100,7 @@ def list
 7. Uranus
 8. Neptune
 9. Pluto
-"
+".colorize(:magenta)
 end
 
 #positives = %w(yes sure okay alright surely affirmative gladly yep fine naturally kinda )
@@ -108,7 +108,8 @@ end
 def choose_planet
 
     puts "Select a planet by number:"
-  choice = nil
+    print " > ".blink.colorize(:yellow)
+    choice = nil
     while !((1..9).include? choice)
         choice = gets.chomp.to_i
         case choice
@@ -122,9 +123,9 @@ def choose_planet
         when 8 then planet1 = @neptune
         when 9 then planet1 = @pluto
         else
-        puts "Not a choice, please enter a valid number for a planet:"
-        choice = gets.chomp.to_i
+        puts "Not a choice, please enter a valid number for a planet:".blink.colorize(:yellow)
         end
+
     end
     return planet1
 end
@@ -133,14 +134,14 @@ end
 
 def intro
     puts "\nWelcome to our universe! You can learn about the planets and solar systems here.
-I can teach you about specific planets, or you may ask questions about our solar system."
+I can teach you about specific planets, or you may ask questions about our solar system.".colorize(:light_blue)
 end
 
 def options
-    puts "\nPlease type 'display' to learn about a specific planet.
-Please type 'compare' to see how far apart two planets are from one another.
-Please type 'age' to see how old a planet in our solar system would be in earth years.
-Type 'exit' if you don't want to learn about the planets."
+    puts "\nPlease type " + "'display'".colorize(:green) +  " to learn about a specific planet.
+Please type"+  " 'compare' ".colorize(:green) + "to see how far apart two planets are from one another.
+Please type" + " 'age' ".colorize(:green) + "to see how old a planet in our solar system would be in earth years.
+Type"+ " 'exit' ".colorize(:green)  +"if you don't want to learn about the planets."
 end
 
 
